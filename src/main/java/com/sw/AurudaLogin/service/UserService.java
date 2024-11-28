@@ -23,7 +23,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final ArticleRepository articleRepository;
-    private final CommentRepository commentRepository;
     private final ReviewRepository reviewRepository;
     private final StorageRespository storageRespository;
     private final TravelPlanRepository travelPlanRepository;
