@@ -5,7 +5,7 @@ spring:
   application:
     name: AurudaLogin #서비스 ID
   datasource:
-    url: jdbc:mysql://localhost:3306/auruda
+    url: jdbc:mysql://mysql-container:3306/auruda
     username: ${YOUR_DATABASE_USER_NAME}
     password: ${YOUR_DATABASE_USER_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
