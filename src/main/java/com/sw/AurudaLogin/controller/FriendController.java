@@ -56,7 +56,6 @@ public class FriendController {
     //친구 요청 거절
     @PostMapping("/reject")
     public ResponseEntity<String> rejectedRequestFriend( @RequestBody UserFriendRequest request) {
-        System.out.println("Asdasd");
 
             UserFriend userFriend = userFriendService.getUserFriend(request.getUserEmail(), request.getFriendEmail());
             userFriendService.updateStatusToRejected(userFriend);

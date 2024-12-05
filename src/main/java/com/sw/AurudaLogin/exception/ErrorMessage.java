@@ -12,6 +12,8 @@ public final class ErrorMessage {
     public static final String INVALID_SORTING_TYPE = "Invalid sorting type";
     public static final String NO_SORTING_TYPE = "No found sorting type";
     public static final String INVALID_REFRESH_TOKEN="Invalid refresh token";
+    public static final String NO_FOUND_FILE = "No found file";
+    public static final String FAILED_DELETE_FILE = "FAILED DELETE FILE";
     private ErrorMessage() {
     }
 }

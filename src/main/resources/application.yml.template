@@ -1,9 +1,22 @@
 server:
   port: 8081
 
+# 파일 업로드 디렉토리 설정
+file:
+  upload-dir: /app/profileImages
+
+storage:
+  type: local
+
 spring:
   application:
     name: AurudaLogin #서비스 ID
+
+  servlet:
+      multipart:
+        max-file-size: 5MB
+        max-request-size: 5MB
+
   datasource:
     url: jdbc:mysql://mysql-container:3306/auruda
     username: ${YOUR_DATABASE_USER_NAME}
