@@ -108,7 +108,10 @@ public class LocalStorageService implements StorageService {
                 }
             }
             else{
+                System.out.println("삭제하려는 파일의 전체 경로: " + file.getAbsolutePath());
+
                 throw new CustomException(ErrorCode.NOT_FOUND, ErrorMessage.NO_FOUND_FILE);
+
             }
     }
 
