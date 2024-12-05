@@ -24,7 +24,7 @@ public class LocalStorageService implements StorageService {
     public final Path fileStorageLocation;
 
     //생성자: 로컬 저장소의 디렉토리를 설정
-    public LocalStorageService(@Value("../ProfileImage")String uploadDir) {
+    public LocalStorageService(@Value("${file.upload-dir}")String uploadDir) {
         //업로드 디렉토리를 절대 경로로 반환하고 정규화
         this.fileStorageLocation= Paths.get(uploadDir).toAbsolutePath().normalize();
 
