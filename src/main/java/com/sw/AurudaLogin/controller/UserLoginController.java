@@ -38,7 +38,6 @@ public class UserLoginController {
 
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@Valid @RequestBody JoinRequest request, BindingResult bindingResult) {
-        System.out.println("h2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222");
         // 오류 메시지를 담을 Map
         Map<String, String> errorMessages = new HashMap<>();
 
