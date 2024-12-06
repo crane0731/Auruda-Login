@@ -46,6 +46,8 @@ public class UserLoginController {
             bindingResult.getFieldErrors().forEach(error ->
                     errorMessages.put(error.getField(), error.getDefaultMessage())
             );
+
+
         }
 
         // 2. 이메일 중복 검사
@@ -67,6 +69,7 @@ public class UserLoginController {
         // 6. 오류가 없다면 회원가입 처리
 
         userService.join(request);
+        System.out.println("로그인 성공");
         return ResponseEntity.ok("회원가입 성공");
     }
 

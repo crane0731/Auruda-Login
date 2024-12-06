@@ -88,7 +88,6 @@ public class LocalStorageService implements StorageService {
         // 폴더 경로 설정
         //String folderPath = "C:\\Users\\dlwns\\source\\spring\\Auruda\\ProfileImage";
         String folderPath ="/app/profileImages";
-        System.out.println("ss");
 
         // URL에서 파일 이름만 추출
         if (fileName.contains("/")) {
