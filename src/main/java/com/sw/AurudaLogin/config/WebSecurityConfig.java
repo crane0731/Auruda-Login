@@ -62,32 +62,7 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://192.168.56.1:3000", "http://localhost:8000", "http://192.168.56.1:8000")); // 허용할 도메인 설정
-//        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setAllowCredentials(true); // 인증 정보 허용
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-    // CORS 필터를 Bean으로 등록
-        @Bean
-        public CorsFilter corsFilter() {
-            UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-            CorsConfiguration configuration = new CorsConfiguration();
 
-            configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://192.168.56.1:3000", "http://localhost:8000", "http://192.168.56.1:8000")); // 허용할 도메인 설정
-            configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            configuration.setAllowedHeaders(List.of("*"));
-            configuration.setAllowCredentials(true); // 인증 정보 허용
-
-            source.registerCorsConfiguration("/**", configuration);
-            return new CorsFilter(source);
-        }
 
     // 패스워드 인코더로 사용할 Bean 등록
     @Bean
