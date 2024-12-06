@@ -69,7 +69,7 @@ public class UserLoginController {
         // 6. 오류가 없다면 회원가입 처리
 
         userService.join(request);
-        System.out.println("로그인 성공");
+        System.out.println("회원가입 성공");
         return ResponseEntity.ok("회원가입 성공");
     }
 
