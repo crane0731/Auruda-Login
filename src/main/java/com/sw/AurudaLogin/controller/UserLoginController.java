@@ -101,17 +101,8 @@ public class UserLoginController {
 
 
     }
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader(value = "User-Id", required = false) Long userId,
-                                         @RequestHeader(value = "Authorization", required = false) String authorization) {
-        // 헤더 로깅
-        System.out.println("Received User-Id: " + userId);
-        System.out.println("Received Authorization: " + authorization);
-        if (userId == null || authorization == null) {
-            System.out.println("Missing required headers");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Missing required headers");
-        }
-        // 유저 검색
+    @PostMapping("/logout")public ResponseEntity<String> logout(@RequestHeader(value = "User-Id", required = false) Long userId, @RequestHeader(value = "Authorization", required = false) String authorization) { // 모든 헤더 로깅 System.out.println("Request Headers:"); HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest(); Collections.list(request.getHeaderNames()).forEach(header -> System.out.println(header + ": " + request.getHeader(header))); System.out.println("Received User-Id: " + userId); System.out.println("Received Authorization: " + authorization); if (userId == null || authorization == null) { System.out.println("Missing required headers"); return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Missing required headers"); }
+// 유저 검색
         User user = userService.findById(userId);
         System.out.println("Found User: " + user);
         RefreshToken userRefreshToken = refreshTokenService.findByUserId(user.getId()).orElse(null);
