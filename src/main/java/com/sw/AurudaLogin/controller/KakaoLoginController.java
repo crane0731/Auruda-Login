@@ -44,7 +44,8 @@ public class KakaoLoginController {
     public void KakaoLogin(HttpServletResponse response)throws IOException {
         String kakaoAuthUrl = "https://kauth.kakao.com/oauth/authorize" +
                 "?client_id="+clientId +
-                "&redirect_uri=http://192.168.56.1:8081/api/auth/kakao/callback" +
+                //"&redirect_uri=http://192.168.56.1:8081/api/auth/kakao/callback" +
+                "&redirect_uri=https://auruda.duckdns.org/api/api/auth/kakao/callback" +
                 "&response_type=code";
 
         response.sendRedirect(kakaoAuthUrl);
