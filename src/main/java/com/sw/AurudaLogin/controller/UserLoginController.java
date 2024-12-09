@@ -9,6 +9,7 @@ import com.sw.AurudaLogin.dto.TokenResponse;
 import com.sw.AurudaLogin.service.RefreshTokenService;
 import com.sw.AurudaLogin.service.TokenService;
 import com.sw.AurudaLogin.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -22,7 +23,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,19 +105,37 @@ public class UserLoginController {
 
 
     }
-    @PostMapping("/logout")public ResponseEntity<String> logout(@RequestHeader(value = "User-Id", required = false) Long userId, @RequestHeader(value = "Authorization", required = false) String authorization) { // 모든 헤더 로깅 System.out.println("Request Headers:"); HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest(); Collections.list(request.getHeaderNames()).forEach(header -> System.out.println(header + ": " + request.getHeader(header))); System.out.println("Received User-Id: " + userId); System.out.println("Received Authorization: " + authorization); if (userId == null || authorization == null) { System.out.println("Missing required headers"); return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Missing required headers"); }
-// 유저 검색
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(
+            @RequestHeader(value = "User-Id", required = false) Long userId,
+            @RequestHeader(value = "Authorization", required = false) String authorization) {
+        // 모든 헤더 로깅
+        System.out.println("Request Headers received in login server:");
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+        Collections.list(request.getHeaderNames()).forEach(header ->
+                System.out.println(header + ": " + request.getHeader(header))
+        );
+        System.out.println("Received User-Id: " + userId);
+        System.out.println("Received Authorization: " + authorization);
+        // 헤더 값 확인
+        if (userId == null || authorization == null) {
+            System.out.println("Missing required headers");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Missing required headers");
+        }
+        // 유저 검색
         User user = userService.findById(userId);
         System.out.println("Found User: " + user);
+        // Refresh Token 조회
         RefreshToken userRefreshToken = refreshTokenService.findByUserId(user.getId()).orElse(null);
         if (userRefreshToken == null) {
             System.out.println("Refresh Token not found for user");
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Refresh Token");
         }
-        // 로그아웃 처리 로직
+        // 카카오 로그아웃 처리 (필요 시)
         if (userRefreshToken.getKakaoAccessToken() != null) {
             logoutFromKakao(userRefreshToken.getKakaoAccessToken());
         }
+        // Refresh Token 삭제
         refreshTokenService.deleteByRefreshToken(userRefreshToken);
         return ResponseEntity.ok("로그아웃 성공");
     }
