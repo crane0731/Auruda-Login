@@ -34,7 +34,9 @@ public class KakaoService {
         params.add("grant_type", "authorization_code");
         params.add("client_id", clientId);
         params.add("client_secret", clientSecret); // 실제 비밀 키 입력
-        params.add("redirect_uri", "http://192.168.56.1:8081/api/auth/kakao/callback");
+        //params.add("redirect_uri", "http://192.168.56.1:8081/api/auth/kakao/callback");
+        params.add("redirect_uri", "https://auruda.duckdns.org/api/api/auth/kakao/callback");
+
         params.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
