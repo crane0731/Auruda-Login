@@ -30,7 +30,7 @@ spring:
           kakao:
             client-id: ${YOUR_KAKAO_KEY_HERE}
             client-secret: ${YOUR_SECRET_KEY_HERE}
-            redirect-uri: http://192.168.56.1:8081/api/auth/kakao/callback
+            redirect-uri: http://14.63.178.38:8001/api/auth/kakao/callback
 #            redirect-uri: http://localhost:8081/api/auth/kakao/callback
             authorization-grant-type: authorization_code
             scope:
