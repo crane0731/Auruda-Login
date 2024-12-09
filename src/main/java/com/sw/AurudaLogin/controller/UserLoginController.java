@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -100,30 +101,54 @@ public class UserLoginController {
 
 
     }
-
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("User-Id") Long userId) {
-
-            User user = userService.findById(userId);
-
-            RefreshToken userRefreshToken = refreshTokenService.findByUserId(user.getId()).orElse(null);
-
-
-            // 3. 카카오 로그아웃 API 호출 (카카오 토큰이 있는 경우)
-            if ((userRefreshToken.getKakaoAccessToken())!=null) {
-
-                logoutFromKakao(userRefreshToken.getKakaoAccessToken());
-            }
-
-
-            // RefreshTokenService를 통해 리프레시 토큰을 삭제
-            refreshTokenService.deleteByRefreshToken(userRefreshToken);
-
-            return ResponseEntity.ok("로그아웃 성공");
-
-
-
-    }// 카카오 로그아웃 API 호출 메서드
+    public ResponseEntity<String> logout(@RequestHeader(value = "User-Id", required = false) Long userId,
+                                         @RequestHeader(value = "Authorization", required = false) String authorization) {
+        // 헤더 로깅
+        System.out.println("Received User-Id: " + userId);
+        System.out.println("Received Authorization: " + authorization);
+        if (userId == null || authorization == null) {
+            System.out.println("Missing required headers");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Missing required headers");
+        }
+        // 유저 검색
+        User user = userService.findById(userId);
+        System.out.println("Found User: " + user);
+        RefreshToken userRefreshToken = refreshTokenService.findByUserId(user.getId()).orElse(null);
+        if (userRefreshToken == null) {
+            System.out.println("Refresh Token not found for user");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid Refresh Token");
+        }
+        // 로그아웃 처리 로직
+        if (userRefreshToken.getKakaoAccessToken() != null) {
+            logoutFromKakao(userRefreshToken.getKakaoAccessToken());
+        }
+        refreshTokenService.deleteByRefreshToken(userRefreshToken);
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+//    @PostMapping("/logout")
+//    public ResponseEntity<String> logout(@RequestHeader("User-Id") Long userId) {
+//
+//            User user = userService.findById(userId);
+//
+//            RefreshToken userRefreshToken = refreshTokenService.findByUserId(user.getId()).orElse(null);
+//
+//
+//            // 3. 카카오 로그아웃 API 호출 (카카오 토큰이 있는 경우)
+//            if ((userRefreshToken.getKakaoAccessToken())!=null) {
+//
+//                logoutFromKakao(userRefreshToken.getKakaoAccessToken());
+//            }
+//
+//
+//            // RefreshTokenService를 통해 리프레시 토큰을 삭제
+//            refreshTokenService.deleteByRefreshToken(userRefreshToken);
+//
+//            return ResponseEntity.ok("로그아웃 성공");
+//
+//
+//
+//    }// 카카오 로그아웃 API 호출 메서드
     private void logoutFromKakao(String accessToken) {
         String kakaoUnlinkUrl = "https://kapi.kakao.com/v1/user/unlink";
         RestTemplate restTemplate = new RestTemplate();
