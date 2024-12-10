@@ -27,7 +27,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         //System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " + authorizationHeader);
 
         String token=request.getParameter("Authorization");
-        System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " +token);
+        System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader =" +token);
 
 
         //가져온 값에서 접두사 제거
@@ -37,6 +37,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if(tokenProvider.validateToken(token)) {
             Authentication authentication = tokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+        else {
+            System.out.println("인증 정보가 맞지 않음");
         }
         filterChain.doFilter(request, response);
 
