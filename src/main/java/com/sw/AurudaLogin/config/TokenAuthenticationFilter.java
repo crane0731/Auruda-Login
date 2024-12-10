@@ -24,11 +24,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         //요청 헤더의 Authorization 키의 값 조회
         //String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-        //System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " + authorizationHeader);
 
-        System.out.println("개미친 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ = " + request.getParameter("UserId"));
+
         String token=request.getParameter("Authorization");
-        System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader =" +token);
+
 
 
         //가져온 값에서 접두사 제거

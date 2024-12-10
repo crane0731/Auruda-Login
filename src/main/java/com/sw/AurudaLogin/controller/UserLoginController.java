@@ -106,8 +106,8 @@ public class UserLoginController {
 
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestParam("UserId") Long userId) {
+    @PostMapping("/logout/{userId}")
+    public ResponseEntity<String> logout( @PathVariable Long userId) {
 
 
 
