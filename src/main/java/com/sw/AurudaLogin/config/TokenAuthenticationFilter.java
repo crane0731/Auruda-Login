@@ -26,6 +26,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         //String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         //System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " + authorizationHeader);
 
+        System.out.println("개미친 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ = " + request.getParameter("UserId"));
         String token=request.getParameter("Authorization");
         System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader =" +token);
 
