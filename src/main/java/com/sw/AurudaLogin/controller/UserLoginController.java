@@ -107,7 +107,7 @@ public class UserLoginController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logout(@RequestHeader("User-Id") Long userId) {
+    public ResponseEntity<String> logout(@RequestParam("User-Id") Long userId) {
 
             User user = userService.findById(userId);
 

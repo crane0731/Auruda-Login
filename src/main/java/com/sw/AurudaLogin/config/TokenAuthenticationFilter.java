@@ -23,11 +23,15 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         //요청 헤더의 Authorization 키의 값 조회
-        String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
-        System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " + authorizationHeader);
+        //String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
+        //System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " + authorizationHeader);
+
+        String token=request.getParameter("Authorization");
+        System.out.println("시발ㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹauthorizationHeader = " +token);
+
 
         //가져온 값에서 접두사 제거
-        String token = getAcessToken(authorizationHeader);
+        //String token = getAcessToken(authorizationHeader);
 
         //가져온 토큰이 유효한지 확인하고, 유효한 때는 인증 정보 설정
         if(tokenProvider.validateToken(token)) {
