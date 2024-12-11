@@ -1,0 +1,80 @@
+server:
+  port: 8081
+
+# 파일 업로드 디렉토리 설정
+file:
+  upload-dir: ../ProfileImage
+
+storage:
+  type: local
+
+spring:
+  application:
+    name: AurudaLogin #서비스 ID
+
+  servlet:
+      multipart:
+        max-file-size: 5MB
+        max-request-size: 5MB
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/auruda
+    username: ${YOUR_DATABASE_USER_NAME}
+    password: ${YOUR_DATABASE_USER_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ${YOUR_KAKAO_KEY_HERE}
+            client-secret: ${YOUR_SECRET_KEY_HERE}
+            redirect-uri: http://localhost:8081/api/auth/kakao/callback
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - account_email
+              - profile_image
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
+
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  web:
+    resources:
+      static-locations: file:///C:/Users/user/Desktop/server/LastServer/ArticleImage/
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org:
+      springframework:
+        security: DEBUG
+
+kakao:
+  api:
+    client-id: ${YOUR_KAKAO_KEY_HERE}
+    client-secret: ${YOUR_SECRET_KEY_HERE}
+
+jwt:
+  issuer: dlwnsgkr8318@skuniv.ac.kr
+  secret_key: asfacolkasndlknv3203klfamkld02asdkjfajkvnlancdkdklmasdklv
+

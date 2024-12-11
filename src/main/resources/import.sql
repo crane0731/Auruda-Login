@@ -1,0 +1,1 @@
+INSERT INTO user (user_id, email, grade, nickname, password, profileimage_url, role, created_at, point)VALUES (1, 'dlwnsgkr8318@skuniv.ac.kr', 'A', '관리자', '$2a$10$62WIsCw.86hUX72X9kaWl.tiSOu8RcWZF3Cg0Jho7RRlhpj1H/CSu', 'null', 'ADMIN', '2023-10-23 12:34:56', 1000000000);
