@@ -36,7 +36,7 @@ public class FriendController {
         try {
             userFriendService.saveFriend(user, request);
 
-            return ResponseEntity.ok("친구 요청에 성공하였습니다.");
+            return ResponseEntity.ok("친구 요청에 성공하였습니다ss.");
         }catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
