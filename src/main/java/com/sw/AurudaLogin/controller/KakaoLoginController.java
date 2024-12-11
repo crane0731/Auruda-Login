@@ -67,11 +67,13 @@ public class KakaoLoginController {
                 .build();
 
         User user;
+
         try {
             user = userService.findByEmail(request.getEmail());
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             userService.join(request);
             user = userService.findByEmail(request.getEmail());
+
         }
 
         // SecurityContext에 인증 객체 생성 및 설정
